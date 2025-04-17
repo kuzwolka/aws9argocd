@@ -1,4 +1,9 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aws9f
+---
 #shop svc
 apiVersion: v1
 kind: Service
