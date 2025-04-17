@@ -1,28 +1,36 @@
-# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+---
+#shop svc
+apiVersion: v1
+kind: Service
 metadata:
-  name: aws9-portal
-  annotations: 
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: aws9-svc-shop
+  namespace: aws9f
 spec:
-  ingressClassName: nginx
-  rules:
-  - host: www.aws9.pri
-    http:
-      paths:
-      - path: "/shop" #www.aws9.pri/shop이 풀 경로
-        pathType: Prefix
-        backend:
-          service:
-            name: aws9-svc-shop
-            port:
-              number: 80
-      - path: "/blog" #www.aws9.pri/blog이 풀 경로
-        pathType: Prefix
-        backend:
-          service:
-            name: aws9-svc-blog
-            port:
-              number: 80
+  selector:
+    web: shop-svc
+  type: ClusterIP
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+#shop deploy
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: shop-deploy
+  namespace: aws9f
+spec:
+  selector:
+    matchLabels:
+      web: shop-svc
+  template:
+    metadata: 
+      labels:
+        web: shop-svc
+    spec:
+      containers:
+      - name: shopctn
+        image: shjtest/aws:blue
+        ports:
+          - containerPort: 80
