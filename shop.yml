@@ -36,6 +36,6 @@ spec:
     spec:
       containers:
       - name: shopctn
-        image: shjtest/aws:blue
+        image: hub.aws9.pri/user1/shop:blue
         ports:
           - containerPort: 80
