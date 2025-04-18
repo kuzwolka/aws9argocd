@@ -36,6 +36,6 @@ spec:
     spec:
       containers:
       - name: shopctn
-        image: hub.aws9.pri/aws9f/shop:1.0
+        image: hub.aws9.pri/aws9/shop:1.0
         ports:
           - containerPort: 80
