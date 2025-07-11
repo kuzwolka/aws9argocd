@@ -9,14 +9,11 @@ pipeline {
                 url: 'https://github.com/kuzwolka/aws9argocd.git'
             }
         }
-    }
-
-    stages {
         stage('build') {
             steps {
-                sh ```
+                sh '''
                 kubectl apply -f test.yml
-                ```
+                '''
             }
         }
     }
